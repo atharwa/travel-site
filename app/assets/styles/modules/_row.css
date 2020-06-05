@@ -22,6 +22,30 @@
     margin-bottom: 1rem;
   }
 
+  &--t-padding {
+    padding-top: 80px;
+  }
+
+  &--equal-height-at-medium {
+    @mixin atMedium {
+      display: flex;
+    }
+
+    & > div {
+      display: flex;
+    }
+  }
+
+  &--equal-height-at-large {
+    @mixin atLarge {
+      display: flex;
+
+      & > div {
+        display: flex;
+      }
+    }
+  }
+
   @mixin atMedium {
 
     &__b-margin-until-medium {
