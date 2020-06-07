@@ -5,7 +5,7 @@
     padding: 4.5rem 0;
   }
   
-  &--no-padding-untill-medium {
+  &--no-b-padding-until-medium {
     padding-bottom: 0;
 
     @mixin atMedium {
@@ -13,7 +13,7 @@
     }
   }
 
-  &--no-padding-untill-large {
+  &--no-b-padding-until-large {
     padding-bottom: 0;
 
     @mixin atLarge {
@@ -27,11 +27,12 @@
   }
 
   &--testimonials {
-    background-color: #E0E6EF;
+    background-color: #e0e6ef;
 
-    @mixin atMedium {
-        background: url('assets/images/testimonials-bg.jpg') top center no-repeat;
-        background-size: cover;
-      }
+    @mixin atLarge {
+      background: url('assets/images/testimonials-bg.jpg') top center no-repeat;
+      background-size: cover;
+    }
   }
+
 }
