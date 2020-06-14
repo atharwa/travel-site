@@ -1,46 +1,54 @@
-import throttle from 'lodash/throttle';
-import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle'
+import debounce from 'lodash/debounce'
 
 class RevealOnScroll {
-    constructor(selector) {
-        this.itemsToReveal = document.querySelectorAll(selector);
-        this.scrollThrottle = throttle(this.callScrollThrottle, 200).bind(this);
-        this.browserHeight = window.innerHeight;
-        this.hideInitially();
-        this.registerEvent();
-    }
+  constructor(els, thresholdPercent) {
+    this.thresholdPercent = thresholdPercent
+    this.itemsToReveal = els
+    this.browserHeight = window.innerHeight
+    this.hideInitially()
+    this.scrollThrottle = throttle(this.calcCaller, 200).bind(this)
+    this.events()
+  }
 
-    hideInitially() {
-        this.itemsToReveal.forEach((e) => {
-            e.classList.add("reveal-item");
-            e.isRevealed = false;
-        });
-        this.itemsToReveal[this.itemsToReveal.length -1].isLastItem = true;
-    }
+  events() {
+    window.addEventListener("scroll", this.scrollThrottle)
+    window.addEventListener("resize", debounce(() => {
+      console.log("Resize just ran")
+      this.browserHeight = window.innerHeight
+    }, 333))
+  }
 
-    registerEvent() {
-        window.addEventListener("scroll", this.scrollThrottle);
-        window.addEventListener("resize", debounce(() => { this.browserHeight = window.innerHeight; console.log("hello");}, 500));
-    }
+  calcCaller() {
+    console.log("Scroll function ran")
+    this.itemsToReveal.forEach(el => {
+      if (el.isRevealed == false) {
+        this.calculateIfScrolledTo(el)
+      }
+    })
+  }
 
-    callScrollThrottle() {
-        this.itemsToReveal.forEach(e => {
-            this.calculateScrolledWindow(e);
-        });
-    }
-
-    calculateScrolledWindow(e) {
-        if(window.scrollY + this.browserHeight > e.offsetTop) {
-            let scrollPercent = (e.getBoundingClientRect().y / this.browserHeight) * 100;
-            if(scrollPercent < 75) {
-                e.classList.add("reveal-item--is-visible");
-                e.isRevealed = true;
-                if(e.isLastItem) {
-                    window.removeEventListener("scroll", this.scrollThrottle);
-                }
-            }
+  calculateIfScrolledTo(el) {
+    if (window.scrollY + this.browserHeight > el.offsetTop) {
+      console.log("Element was calculated")
+      let scrollPercent = (el.getBoundingClientRect().top / this.browserHeight) * 100
+      if (scrollPercent < this.thresholdPercent) {
+        el.classList.add("reveal-item--is-visible")
+        el.isRevealed = true
+        if (el.isLastItem) {
+          window.removeEventListener("scroll", this.scrollThrottle)
         }
+      }
     }
+  }
+
+  hideInitially() {
+    this.itemsToReveal.forEach(el => {
+      el.classList.add("reveal-item")
+      el.isRevealed = false
+    })
+    this.itemsToReveal[this.itemsToReveal.length - 1].isLastItem = true
+  }
 }
 
-export default RevealOnScroll;
+export default RevealOnScroll
