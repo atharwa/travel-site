@@ -1,0 +1,47 @@
+.modal {
+    opacity: 0;
+    visibility: hidden;
+    translate: scale(1.2);
+    transform: translate 1.3ms ease-out, opacity 1.3ms ease-out, visibility 1.3ms ease-out;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 100;
+    display: flex;
+
+    &--is-visible {
+        opacity: 1;
+        translate: scale(1);
+        visibility: visible;
+    }
+    &__inner {
+        flex: 1;
+        margin: auto;
+    }
+
+    &__close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 2rem;
+        transform: scaleX(1.5);
+        color: $mainBlue;
+        cursor: pointer;
+        transform-origin: 100% 0;
+
+        &:hover {
+            color: $mainOrange;
+        }
+    }
+
+    &__description {
+        text-align: center;
+        font-size: 1.3rem;
+        line-height: 1.35rem;
+        font-weight: 300;
+        color: $mainBlue;
+    }
+}
