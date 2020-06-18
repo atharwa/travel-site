@@ -5,17 +5,11 @@ class Modal {
     }
 
     registerEvent() {
-        this.openModalButtons = document.querySelectorAll(".open-modal");
         this.closeModalButton = document.querySelector(".modal__close");
-
-        this.openModalButtons.forEach((el) => {
-          el.addEventListener("click",e => this.openModal(e));
-        });
         this.closeModalButton.addEventListener("click",e => this.closeModal(e));
     }
 
-    openModal(e) {
-      e.preventDefault();
+    openModal() {
       this.modalDiv = document.querySelector(".modal");
       this.modalDiv.classList.add("modal--is-visible");
     }
