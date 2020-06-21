@@ -11,6 +11,7 @@ new RevealOnScroll(document.querySelectorAll(".testimonial"), 60)
 
 let mobileMenu = new MobileMenu();
 //new Modal();
+//dummy comment
 
 let modal;
 document.querySelectorAll(".open-modal").forEach(el => {
